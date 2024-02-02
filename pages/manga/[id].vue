@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { id } = useRoute().params
 const { data: setData, refresh } = await useFetch(`/api/manga/${id}`, { key: `${id}` })
-const data: Manga = setData
+const data: Manga = setData as unknown as Manga 
 
 export interface Manga {
     id: string
@@ -77,6 +77,7 @@ export interface Names {
                     <div class="flex flex-wrap space-x-2 mt-2">
                         <div
                             v-for="type in data.types"
+                            :key="type"
                             class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
                         >
                             {{ type }}
@@ -89,6 +90,7 @@ export interface Names {
                     <div class="flex flex-wrap space-x-2 mt-2">
                         <div
                             v-for="platform in data.platforms"
+                            :key="platform"
                             class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
                         >
                             {{ platform }}
@@ -101,6 +103,7 @@ export interface Names {
                     <div class="flex flex-wrap space-x-2 mt-2">
                         <div
                             v-for="genre in data.genres"
+                            :key="genre"
                             class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
                         >
                             {{ genre }}
@@ -113,6 +116,7 @@ export interface Names {
                     <div class="flex flex-wrap space-x-2 mt-2">
                         <div
                             v-for="tag in data.tags"
+                            :key="tag"
                             class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
                         >
                             {{ tag }}

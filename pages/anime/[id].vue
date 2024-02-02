@@ -1,8 +1,22 @@
 <script setup lang="ts">
 const { id } = useRoute().params
 
-const { data: setData, refresh } = await useFetch(`/api/anime/${id}`, { key: `${id}` })
-const data: Anime = setData
+// const { data: useCacheData } = await useNuxtData(id.toString());
+// let getData = null;
+// if (useCacheData.value) {
+
+//     getdata: useCacheData.value
+
+// } else {
+//     const { data: setData, refresh } = await useFetch(`/api/anime/${id}`, { key: id.toString() });
+
+//     getdata: setData.value
+
+// }
+
+const { data: getData, refresh } = await useFetch(`/api/anime/${id}`, { key: id.toString() });
+const data: Anime = getData as unknown as Anime
+
 
 export interface Anime {
     id: string
@@ -35,10 +49,8 @@ export interface Names {
         <nav class="flex justify-between items-center py-4">
             <NuxtLink to="/" class="text-2xl font-bold text-purple-600 dark:text-purple-300">Home</NuxtLink>
             <NuxtLink to="/anime" class="text-2xl font-bold text-purple-600 dark:text-purple-300">Anime</NuxtLink>
-            <button
-                @click="refresh"
-                class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white focus:outline-none"
-            >
+            <button @click="refresh"
+                class="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white focus:outline-none">
                 Refresh
             </button>
         </nav>
@@ -77,10 +89,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Types:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="type in data.types"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="type in data.types" v-bind:key="type"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ type }}
                         </div>
                     </div>
@@ -89,10 +99,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Platforms:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="platform in data.platforms"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="platform in data.platforms" v-bind:key="platform"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ platform }}
                         </div>
                     </div>
@@ -101,10 +109,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Genres:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="genre in data.genres"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="genre in data.genres" v-bind:key="genre"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ genre }}
                         </div>
                     </div>
@@ -113,10 +119,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Tags:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="tag in data.tags"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="tag in data.tags" v-bind:key="tag"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ tag }}
                         </div>
                     </div>
@@ -125,29 +129,23 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Trailer URLs:</h3>
                     <div v-for="trailer_url in data.trailer_urls" :key="trailer_url">
-                        <NuxtLink
-                            :to="trailer_url"
-                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500"
-                            >{{ trailer_url }}</NuxtLink
-                        >
+                        <NuxtLink :to="trailer_url"
+                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500">{{
+                                trailer_url }}</NuxtLink>
                     </div>
 
                     <h3 class="text-xl font-semibold mt-4">Info URLs:</h3>
                     <div v-for="info_url in data.info_urls" :key="info_url">
-                        <NuxtLink
-                            :to="info_url"
-                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500"
-                            >{{ info_url }}</NuxtLink
-                        >
+                        <NuxtLink :to="info_url"
+                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500">{{
+                                info_url }}</NuxtLink>
                     </div>
 
                     <h3 class="text-xl font-semibold mt-4">Video URLs:</h3>
                     <div v-for="video_url in data.video_urls" :key="video_url">
-                        <NuxtLink
-                            :to="video_url"
-                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500"
-                            >{{ video_url }}</NuxtLink
-                        >
+                        <NuxtLink :to="video_url"
+                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500">{{
+                                video_url }}</NuxtLink>
                     </div>
                 </div>
 

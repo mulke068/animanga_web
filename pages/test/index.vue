@@ -7,5 +7,8 @@
         <NuxtLink class="link" to="test/2">2</NuxtLink>
         <NuxtLink class="link" to="test/3">3</NuxtLink>
         <NuxtLink class="link" to="test/4">4</NuxtLink>
+        <NuxtLink class="link" to="test/5">5</NuxtLink>
+        <NuxtLink class="link" to="test/anime_meilisearch">Anime Meilisearch</NuxtLink>
+        <NuxtLink class="link" to="test/manga_meilisearch">Manga Meilisearch</NuxtLink>
     </nav>
 </template>
