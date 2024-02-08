@@ -1,7 +1,12 @@
 <script setup lang="ts">
 const { id } = useRoute().params
-const { data: setData, refresh } = await useFetch(`/api/manga/${id}`, { key: `${id}` })
-const data: Manga = setData as unknown as Manga 
+const nuxtApp = useNuxtApp();
+const { data: setData, refresh } = await useFetch(`/api/manga/${id}`, {
+    key: `${id}`, getCachedData(key) {
+        return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+    }
+})
+const data: Manga = setData as unknown as Manga
 
 export interface Manga {
     id: string
@@ -33,10 +38,8 @@ export interface Names {
         <nav class="flex justify-between items-center py-4">
             <NuxtLink to="/" class="text-2xl font-bold text-purple-600 dark:text-purple-300">Home</NuxtLink>
             <NuxtLink to="/manga" class="text-2xl font-bold text-purple-600 dark:text-purple-300">Manga</NuxtLink>
-            <button
-                @click="refresh"
-                class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white focus:outline-none"
-            >
+            <button @click="refresh"
+                class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white focus:outline-none">
                 Refresh
             </button>
         </nav>
@@ -75,11 +78,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Types:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="type in data.types"
-                            :key="type"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="type in data.types" :key="type"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ type }}
                         </div>
                     </div>
@@ -88,11 +88,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Platforms:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="platform in data.platforms"
-                            :key="platform"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="platform in data.platforms" :key="platform"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ platform }}
                         </div>
                     </div>
@@ -101,11 +98,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Genres:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="genre in data.genres"
-                            :key="genre"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="genre in data.genres" :key="genre"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ genre }}
                         </div>
                     </div>
@@ -114,11 +108,8 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold">Tags:</h3>
                     <div class="flex flex-wrap space-x-2 mt-2">
-                        <div
-                            v-for="tag in data.tags"
-                            :key="tag"
-                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-                        >
+                        <div v-for="tag in data.tags" :key="tag"
+                            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2">
                             {{ tag }}
                         </div>
                     </div>
@@ -127,20 +118,16 @@ export interface Names {
                 <div class="mt-4">
                     <h3 class="text-xl font-semibold mt-4">Info URLs:</h3>
                     <div v-for="info_url in data.info_urls" :key="info_url">
-                        <NuxtLink
-                            :to="info_url"
-                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500"
-                            >{{ info_url }}</NuxtLink
-                        >
+                        <NuxtLink :to="info_url"
+                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500">{{
+                                info_url }}</NuxtLink>
                     </div>
 
                     <h3 class="text-xl font-semibold mt-4">Read URLs:</h3>
                     <div v-for="read_url in data.read_urls" :key="read_url">
-                        <NuxtLink
-                            :to="read_url"
-                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500"
-                            >{{ read_url }}</NuxtLink
-                        >
+                        <NuxtLink :to="read_url"
+                            class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500">{{
+                                read_url }}</NuxtLink>
                     </div>
                 </div>
 

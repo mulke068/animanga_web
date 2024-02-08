@@ -32,7 +32,7 @@
 //     jp:       string;
 // }
 
-const props = defineProps({ items : Array, search: String});
+const props = defineProps({ items: Array, search: String });
 const { items, search } = toRefs(props);
 
 const filteredItems = computed(() => {

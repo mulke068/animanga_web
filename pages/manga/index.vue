@@ -10,13 +10,18 @@
         <!-- manga Search -->
         <div>
             <input type="text" v-model="search" placeholder="Search here…" class="mb-4" />
-            <MangaSearchResults :items="data" :search="search"/>
+            <MangaSearchResults :items="data" :search="search" />
         </div>
     </div>
 </template>
 
 <script setup>
 const search = ref('');
-const { data, refresh } = await useFetch('/api/manga/');
+const nuxtApp = useNuxtApp();
+const { data, refresh } = await useFetch('/api/manga/', {
+    key: 'MangaSearchResults', getCachedData(key) {
+        return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+    }
+});
 
 </script>

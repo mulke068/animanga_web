@@ -3,7 +3,7 @@
         <nav class="container mx-auto flex justify-center space-x-4">
             <NuxtLink to="/anime" class="text-lg font-semibold hover:text-indigo-500"> Anime </NuxtLink>
             <NuxtLink to="/manga" class="text-lg font-semibold hover:text-indigo-500"> Manga </NuxtLink>
-            <NuxtLink to="/test" class="text-lg font-semibold hover:text-indigo-500"> Test </NuxtLink>
+            <!-- <NuxtLink to="/test" class="text-lg font-semibold hover:text-indigo-500"> Test </NuxtLink> -->
         </nav>
     </div>
 </template>

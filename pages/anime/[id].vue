@@ -1,20 +1,12 @@
 <script setup lang="ts">
 const { id } = useRoute().params
+const nuxtApp = useNuxtApp();
 
-// const { data: useCacheData } = await useNuxtData(id.toString());
-// let getData = null;
-// if (useCacheData.value) {
-
-//     getdata: useCacheData.value
-
-// } else {
-//     const { data: setData, refresh } = await useFetch(`/api/anime/${id}`, { key: id.toString() });
-
-//     getdata: setData.value
-
-// }
-
-const { data: getData, refresh } = await useFetch(`/api/anime/${id}`, { key: id.toString() });
+const { data: getData, refresh } = await useFetch(`/api/anime/${id}`, {
+    key: id.toString(), getCachedData(key) {
+        return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+    }
+});
 const data: Anime = getData as unknown as Anime
 
 

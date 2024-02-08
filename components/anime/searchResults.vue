@@ -34,7 +34,7 @@
 //     jp:       string;
 // }
 
-const props = defineProps({ items: Array , search: String});
+const props = defineProps({ items: Array, search: String });
 const { items, search } = toRefs(props);
 
 const filteredItems = computed(() => {
@@ -53,14 +53,20 @@ const filteredItems = computed(() => {
 <template>
     <ul class="grid grid-cols-1 gap-4">
         <li v-for="item in filteredItems" :key="item.id.String">
-            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                <h1 class="text-2xl text-blue-400 dark:text-blue-400 font-semibold">{{ item.names.original }}</h1>
-                <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.en }}</h2>
-                <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.jp }}</h2>
-                <NuxtLink :to="`/anime/${item.id.id.String}`" class="mt-2 text-blue-500 hover:underline block">
-                    Click ME
-                </NuxtLink>
+            <div class="md:flex md:justify-items-stretch p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
+                <div class="md:w-2/3">
+                    <h1 class="text-2xl text-blue-400 dark:text-blue-400 font-semibold">{{ item.names.original }}</h1>
+                    <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.en }}</h2>
+                    <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.jp }}</h2>
+                    <NuxtLink :to="`/anime/${item.id.id.String}`" class="md:w-fit mt-2 text-blue-500 hover:underline block">
+                        Click ME
+                    </NuxtLink>
+                </div>
+                <div class="md:w-1/3 justify-center">
+                    <img :src="item.image_urls[0]" alt="anime image" class="w-64 h-full object-cover rounded-lg">
+                </div>
             </div>
+
         </li>
     </ul>
 </template>
