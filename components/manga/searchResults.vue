@@ -32,19 +32,20 @@
 //     jp:       string;
 // }
 
-const props = defineProps({ items: Array, search: String });
-const { items, search } = toRefs(props);
+const props = defineProps({ items: Array, search: String })
+const { items, search } = toRefs(props)
 
 const filteredItems = computed(() => {
-    if (!search.value) return items?.value;
-    return items?.value?.filter(item => {
-        const searchString = search?.value?.toLowerCase();
-        return item.names.original.toLowerCase().includes(seachString) ||
+    if (!search.value) return items?.value
+    return items?.value?.filter((item) => {
+        const searchString = search?.value?.toLowerCase()
+        return (
+            item.names.original.toLowerCase().includes(seachString) ||
             item.names.en.toLowerCase().includes(searchString) ||
             item.names.jp.toLowerCase().includes(searchString)
+        )
     })
 })
-
 </script>
 
 <template>

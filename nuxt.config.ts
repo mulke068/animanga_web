@@ -1,14 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: {
-        enabled: false,
+        enabled: true,
 
         timeline: {
             enabled: true,
         },
     },
     pages: true,
-    nitro: {},
+    nitro: {
+        enabled: true,
+    },
     css: ['@/assets/css/main.css'],
     runtimeConfig: {
         private: {
@@ -16,13 +18,16 @@ export default defineNuxtConfig({
             search_url: process.env.SEARCH_URL || 'http://127.0.0.1:7700',
         },
     },
-    modules: [
-        //'@nuxt/image',
-        //'@nuxt/content',
-        //'@nuxtjs/partytown',
-        'nuxt-meilisearch',
-        '@nuxt/ui',
-        //'@nuxt/devtools',
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    modules: ['@nuxt/image', 
+    //'@nuxt/content',
+    //'@nuxtjs/partytown',
+    'nuxt-meilisearch', 
+    //'@nuxt/devtools',
+    '@nuxt/ui', 
+    // '@vee-validate/nuxt'
     ],
     meilisearch: {
         hostUrl: process.env.SEARCH_URL || 'http://127.0.0.1:7700',

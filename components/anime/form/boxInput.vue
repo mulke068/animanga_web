@@ -1,0 +1,67 @@
+<template>
+    <div class="mt-4">
+        <h3 class="text-xl font-semibold">{{ title }}</h3>
+        <!-- <textarea v-model="item_String" class="max-w-full rounded-lg shadow-md p-2"></textarea> -->
+        <textarea
+            v-model="item_String"
+            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
+        ></textarea>
+        <div class="flex flex-wrap mt-2">
+            <div
+                v-for="(item, index) in parsedItem"
+                :key="index"
+                class="mr-2 rounded-full bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 px-2 py-1"
+            >
+                {{ item }}
+                <button
+                    @click.prevent="removeItem(index)"
+                    class="text-red-500 hover:text-red-700 dark:text-yellow-300 dark:hover:text-yellow-500 focus:outline-none"
+                >
+                    X
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="mt-4">
+        <h3 class="text-xl font-semibold">Platforms:</h3>
+        <div class="flex flex-wrap space-x-2 mt-2">
+            <input type="text" v-model="formData.platforms" class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"  />
+        </div>
+    </div> -->
+</template>
+
+<script>
+export default {
+    props: {
+        value: {
+            type: Array,
+            required: true,
+        },
+        title: {
+            type: String,
+            required: true,
+        },
+    },
+    data() {
+        return {
+            item_String: '',
+        }
+    },
+    computed: {
+        parsedItem() {
+            return this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item !== '')
+        },
+    },
+    methods: {
+        addItem() {
+            this.item_String = item_string.trim()
+            this.value.push(...this.parsedItem)
+            this.item_String = ''
+        },
+        removeItem(index) {
+            this.parsedItem.splice(index, 1)
+            this.item_String = this.parsedItem.join(',')
+        },
+    },
+}
+</script>
