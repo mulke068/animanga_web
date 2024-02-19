@@ -40,7 +40,7 @@ const filteredItems = computed(() => {
     return items?.value?.filter((item) => {
         const searchString = search?.value?.toLowerCase()
         return (
-            item.names.original.toLowerCase().includes(seachString) ||
+            item.names.original.toLowerCase().includes(searchString) ||
             item.names.en.toLowerCase().includes(searchString) ||
             item.names.jp.toLowerCase().includes(searchString)
         )

@@ -8,7 +8,7 @@
                         <!-- Menu -->
                         <menu class="flex items-center gap-4 p-6">
 
-                            <slot name="menu" />
+                            <slot name="nav" />
                                
                         </menu>
                         <!-- Search Bar -->

@@ -6,12 +6,12 @@
                 type="url"
                 v-model="value[index]"
                 :placeholder="placeholder"
-                class="max-w-full rounded-lg shadow-md py-2 m-2"
+                class="input-field"
             />
             <!-- Buttons for Del arrays -->
             <button
                 @click.prevent="removeItem(index)"
-                class="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none"
+                class="delete-button"
             >
                 Remove {{ title }}
             </button>
@@ -20,7 +20,7 @@
         <div class="flex justify-between mt-4">
             <button
                 @click.prevent="addItem"
-                class="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none"
+                class="add-button"
             >
                 Add {{ title }}
             </button>

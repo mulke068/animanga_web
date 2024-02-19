@@ -47,4 +47,5 @@ const isOpen = ref(false)
     <div v-else>Unknown Event Happend</div>
 
   </NuxtLayout>
+  
 </template> 

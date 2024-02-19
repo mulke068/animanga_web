@@ -1,27 +1,48 @@
 <template>
-    <div class="bg-gray-100 dark:bg-gray-900 min-h-screen p-4">
-        <!-- Navigation -->
-        <nav class="mb-4">
-            <NuxtLink to="/" class="link">Home</NuxtLink>
-            <NuxtLink to="anime" class="link">Anime</NuxtLink>
-            <span class="font-bold text-xl mx-2">Manga Search</span>
-        </nav>
+    <div>
+        <NuxtLayout name="search">
+            <!-- Navigation -->
+            <template #nav>
+                <h1
+                    class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
+                    Manga Search
+                </h1>
+                <NuxtLink to="/" class="link">Home</NuxtLink>
+                <NuxtLink to="anime" class="link">Anime</NuxtLink>
+                <NuxtLink to="/manga/create"
+                    class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white">
+                    Create
+                </NuxtLink>
+            </template>
 
-        <!-- manga Search -->
-        <div>
-            <input type="text" v-model="search" placeholder="Search here…" class="mb-4" />
-            <MangaSearchResults :items="data" :search="search" />
-        </div>
+            <!-- manga Search -->
+            <template #input>
+                <input type="text" v-model="search" placeholder="Search …" class="input-search" />
+            </template>
+            <!-- manga Search Results -->
+            <template #default>
+                <div v-if="status == 'pending'" class="text-center">Loading…</div>
+                <div v-else-if="status == 'idle'" class="text-center">Idle.</div>
+                <div v-else-if="status == 'error'" class="text-center">No results found.</div>
+                <MangaSearchResults v-else-if="status == 'success'" :items="data" :search="search" />
+                <div v-else>Unknown Event Happend</div>
+            </template>
+        </NuxtLayout>
     </div>
+    <div class="bg-gray-100 dark:bg-gray-900 min-h-screen p-4"></div>
 </template>
 
 <script setup>
-const search = ref('');
-const nuxtApp = useNuxtApp();
-const { data, refresh } = await useFetch('/api/manga/', {
-    key: 'MangaSearchResults', getCachedData(key) {
-        return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-    }
-});
+const search = ref('')
+const nuxtApp = useNuxtApp()
+const { data, status } = await useFetch('/api/manga/', {
+    key: 'MangaSearchResults',
+    getCachedData(key) {
+        return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+    },
+})
 
+definePageMeta({
+    layout: false,
+})
 </script>
