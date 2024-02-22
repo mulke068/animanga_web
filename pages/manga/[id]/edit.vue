@@ -1,10 +1,10 @@
-import { Anime } from "./[id].vue";
+import { Manga } from "./[id].vue";
 
 <template>
     <ClientOnly>
         <NuxtLayout name="items">
             <template #nav>
-                <NuxtLink to="/anime" class="nuxt-link">Back</NuxtLink>
+                <NuxtLink to="/manga" class="nuxt-link">Back</NuxtLink>
                 <NuxtLink to="/" class="nuxt-link">Home</NuxtLink>
                 <button @click="deleteEntry" class="delete-button">Delete</button>
             </template>
@@ -49,17 +49,17 @@ import { Anime } from "./[id].vue";
                             <h3 class="text-xl font-semibold">Details:</h3>
                             <ul class="mt-2 space-y-2">
                                 <li>
-                                    <strong class="text-purple-600">Season:</strong>
+                                    <strong class="text-purple-600">Volumes:</strong>
                                     <input
                                         type="number"
-                                        v-model="formData.season"
+                                        v-model="formData.volumes"
                                         class="input-field text-gray-800 dark:text-gray-300 p-2"
                                         required
                                     />
                                 </li>
                                 <li>
-                                    <strong class="text-purple-600">Episodes:</strong>
-                                    <input type="number" v-model="formData.episodes" class="input-field" required />
+                                    <strong class="text-purple-600">Chapters:</strong>
+                                    <input type="number" v-model="formData.chapters" class="input-field" required />
                                 </li>
                                 <li>
                                     <strong class="text-purple-600">Score:</strong>
@@ -114,14 +114,11 @@ import { Anime } from "./[id].vue";
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Trailer URLs -->
-                        <FormArrayInput :value="formData.trailer_urls" title="Trailer" placeholder="URL" />
-
                         <!-- Info URLs -->
                         <FormArrayInput :value="formData.info_urls" title="Info" placeholder="URL" />
 
-                        <!-- Video URLs -->
-                        <FormArrayInput :value="formData.video_urls" title="Video" placeholder="URL" />
+                        <!-- Read URLs -->
+                        <FormArrayInput :value="formData.read_urls" title="Read" placeholder="URL" />
 
                         <!-- Image URLs -->
                         <FormArrayInput :value="formData.image_urls" title="Image" placeholder="URL" />
@@ -141,7 +138,7 @@ export default {
     data() {
         return {
             formData: {},
-            animeID: '', // Make sure to set this ID
+            mangaID: '', // Make sure to set this ID
             loading: false,
             error: null,
         }
@@ -150,8 +147,8 @@ export default {
         async fetchData() {
             this.loading = true
             try {
-                // Replace this with your actual fetch logic, using the animeID to retrieve data
-                const response = await fetch(`/api/anime/${this.animeID}`)
+                // Replace this with your actual fetch logic, using the mangaID to retrieve data
+                const response = await fetch(`/api/manga/${this.mangaID}`)
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch data')
@@ -167,7 +164,7 @@ export default {
         async submitForm() {
             // Handle form submission
             // console.log('Form submitted', JSON.stringify(this.formData));
-            const res = await $fetch(`/api/anime/${this.animeID}`, {
+            const res = await $fetch(`/api/manga/${this.mangaID}`, {
                 method: 'PATCH',
                 body: JSON.stringify(this.formData),
             })
@@ -175,40 +172,40 @@ export default {
             if (res.statusCode === 201) {
                 this.fetchData()
             } else {
-                console.error('Failed to update anime')
-                alert('Failed to update anime')
+                console.error('Failed to update manga')
+                alert('Failed to update manga')
             }
 
             // if (res.statusCode === 201) {
-            //     this.$router.push(`/anime/${this.animeID}`)
+            //     this.$router.push(`/manga/${this.mangaID}`)
             // } else {
-            //     console.error('Failed to update anime')
-            //     alert('Failed to update anime')
+            //     console.error('Failed to update manga')
+            //     alert('Failed to update manga')
             // }
         },
         async deleteEntry() {
-            if (!confirm('Are you sure you want to delete this anime?')) {
+            if (!confirm('Are you sure you want to delete this manga?')) {
                 return
             }
 
-            console.log('Deleting anime', this.animeID)
+            console.log('Deleting manga', this.mangaID)
 
-            let res = await $fetch(`/api/anime/${this.animeID}`, {
+            let res = await $fetch(`/api/manga/${this.mangaID}`, {
                 method: 'DELETE',
             })
 
             if (res.statusCode === 204) {
-                alert('Anime deleted successfully')
+                alert('Manga deleted successfully')
 
-                this.$router.push(`/anime`)
+                this.$router.push(`/manga`)
             } else {
-                console.error('Failed to delete anime')
-                alert('Failed to delete anime')
+                console.error('Failed to delete manga')
+                alert('Failed to delete manga')
             }
         },
     },
     beforeMount() {
-        this.animeID = this.$route.params.id // Get the anime ID from the route params
+        this.mangaID = this.$route.params.id // Get the manga ID from the route params
     },
     mounted() {
         this.fetchData() // Fetch data when the component is mounted

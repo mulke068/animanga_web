@@ -1,45 +1,13 @@
 <script setup>
-// export interface Anime {
-//     id:           ID;
-//     names:        Names;
-//     season:       number;
-//     episodes:     number;
-//     score:        number;
-//     status:       string;
-//     types:        string[];
-//     platforms:    string[];
-//     genres:       string[];
-//     tags:         string[];
-//     trailer_urls: string[];
-//     info_urls:    string[];
-//     video_urls:   string[];
-//     image_urls:   string[];
-//     updated_at:   Date;
-//     created_at:   Date;
-// }
+const props = defineProps({ items: Array, query: String, nameType: String })
+const { items, query, nameType } = toRefs(props)
 
-// export interface ID {
-//     tb: string;
-//     id: IDID;
-// }
-
-// export interface IDID {
-//     String: string;
-// }
-
-// export interface Names {
-//     original: string;
-//     en:       string;
-//     jp:       string;
-// }
-
-const props = defineProps({ items: Array, search: String })
-const { items, search } = toRefs(props)
+const name = nameType?.value
 
 const filteredItems = computed(() => {
-    if (!search.value) return items?.value
+    if (!query.value) return items?.value
     return items?.value?.filter((item) => {
-        const searchString = search?.value?.toLowerCase()
+        const searchString = query?.value?.toLowerCase()
         return (
             item.names.original.toLowerCase().includes(searchString) ||
             item.names.en.toLowerCase().includes(searchString) ||
@@ -58,14 +26,14 @@ const filteredItems = computed(() => {
                     <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.en }}</h2>
                     <h2 class="text-lg text-gray-700 dark:text-gray-300">{{ item.names.jp }}</h2>
                     <NuxtLink
-                        :to="`/anime/${item.id.id.String}`"
+                        :to="`/${name}/${item.id.id.String}`"
                         class="md:w-fit mt-2 text-blue-500 hover:underline block"
                     >
                         Click ME
                     </NuxtLink>
                 </div>
                 <div class="md:w-1/3 justify-center">
-                    <img :src="item.image_urls[0]" alt="anime image" class="w-64 h-full object-cover rounded-lg" />
+                    <img :src="item.image_urls[0]" :alt="`${name} image`" class="w-64 h-full object-cover rounded-lg" />
                 </div>
             </div>
         </li>

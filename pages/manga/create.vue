@@ -2,7 +2,7 @@
     <ClientOnly>
         <NuxtLayout name="items">
             <template #nav>
-                <NuxtLink to="/anime" class="nuxt-link">Back</NuxtLink>
+                <NuxtLink to="/manga" class="nuxt-link">Back</NuxtLink>
                 <NuxtLink to="/" class="nuxt-link">Home</NuxtLink>
             </template>
 
@@ -46,17 +46,17 @@
                             <h3 class="text-xl font-semibold">Details:</h3>
                             <ul class="mt-2 space-y-2">
                                 <li>
-                                    <strong class="text-purple-600">Season:</strong>
+                                    <strong class="text-purple-600">Volumes:</strong>
                                     <input
                                         type="number"
-                                        v-model="formData.season"
+                                        v-model="formData.volumes"
                                         class="input-field text-gray-800 dark:text-gray-300 p-2"
                                         required
                                     />
                                 </li>
                                 <li>
-                                    <strong class="text-purple-600">Episodes:</strong>
-                                    <input type="number" v-model="formData.episodes" class="input-field" required />
+                                    <strong class="text-purple-600">Chapters:</strong>
+                                    <input type="number" v-model="formData.chapters" class="input-field" required />
                                 </li>
                                 <li>
                                     <strong class="text-purple-600">Score:</strong>
@@ -90,14 +90,11 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Trailer URLs -->
-                        <FormArrayInput :value="formData.trailer_urls" title="Trailer" placeholder="URL" />
-
                         <!-- Info URLs -->
                         <FormArrayInput :value="formData.info_urls" title="Info" placeholder="URL" />
 
-                        <!-- Video URLs -->
-                        <FormArrayInput :value="formData.video_urls" title="Video" placeholder="URL" />
+                        <!-- Read URLs -->
+                        <FormArrayInput :value="formData.read_urls" title="Read" placeholder="URL" />
 
                         <!-- Image URLs -->
                         <FormArrayInput :value="formData.image_urls" title="Image" placeholder="URL" />
@@ -128,17 +125,16 @@ export default {
                     en: '',
                     jp: '',
                 },
-                season: 0,
-                episodes: 0,
+                volumes: 0,
+                chapters: 0,
                 score: 0,
                 status: 'unknown',
                 types: [],
                 platforms: [],
                 genres: [],
                 tags: [],
-                trailer_urls: [],
                 info_urls: [],
-                video_urls: [],
+                read_urls: [],
                 image_urls: [],
             },
             response: null,
@@ -148,7 +144,7 @@ export default {
         async submitForm() {
             // console.log(this.formData)
 
-            const res = await $fetch('/api/anime', {
+            const res = await $fetch('/api/manga', {
                 method: 'POST',
                 body: JSON.stringify(this.formData),
             })
@@ -156,10 +152,10 @@ export default {
             // console.log(res)
 
             if (res.statusCode === 201) {
-                this.$router.push(`/anime/${res.body.id}`)
+                this.$router.push(`/manga/${res.body.id}`)
             } else {
-                console.error('Failed to Create anime')
-                alert('Failed to Create anime')
+                console.error('Failed to Create manga')
+                alert('Failed to Create manga')
             }
         },
     },

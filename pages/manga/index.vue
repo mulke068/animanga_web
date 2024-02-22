@@ -4,13 +4,16 @@
             <!-- Navigation -->
             <template #nav>
                 <h1
-                    class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
+                    class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200"
+                >
                     Manga Search
                 </h1>
                 <NuxtLink to="/" class="link">Home</NuxtLink>
                 <NuxtLink to="anime" class="link">Anime</NuxtLink>
-                <NuxtLink to="/manga/create"
-                    class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white">
+                <NuxtLink
+                    to="/manga/create"
+                    class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white"
+                >
                     Create
                 </NuxtLink>
             </template>
@@ -24,7 +27,7 @@
                 <div v-if="status == 'pending'" class="text-center">Loading…</div>
                 <div v-else-if="status == 'idle'" class="text-center">Idle.</div>
                 <div v-else-if="status == 'error'" class="text-center">No results found.</div>
-                <MangaSearchResults v-else-if="status == 'success'" :items="data" :search="search" />
+                <SearchResults v-else-if="status == 'success'" :items="data" :query="search" nameType="manga" />
                 <div v-else>Unknown Event Happend</div>
             </template>
         </NuxtLayout>
