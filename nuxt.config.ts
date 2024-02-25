@@ -8,9 +8,9 @@ export default defineNuxtConfig({
         },
     },
     pages: true,
-    // nitro: {
-    //    enabled: true,
-    //},
+    nitro: {
+       enabled: true,
+    },
     css: ['@/assets/css/main.css'],
     runtimeConfig: {
         private: {
