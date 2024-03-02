@@ -1,6 +1,7 @@
 <template>
     <div class="mt-4">
-        <h3 class="text-xl font-semibold mt-4">{{ title }}</h3>
+        <h3 class="text-xl font-semibold">{{ title }}</h3>
+        <!-- <textarea v-model="item_String" class="max-w-full rounded-lg shadow-md p-2"></textarea> -->
         <textarea
             v-model="item_String"
             class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
@@ -18,10 +19,16 @@
                 >
                     X
                 </button>
-                <input type="hidden" :name="`${title}[${item}]`" v-model="parsedItem[index]"/>
+                <!-- <input type="hidden" :name="`${title}[${index}]`" :value="item" /> -->
             </div>
         </div>
     </div>
+    <!-- <div class="mt-4">
+        <h3 class="text-xl font-semibold">Platforms:</h3>
+        <div class="flex flex-wrap space-x-2 mt-2">
+            <input type="text" v-model="formData.platforms" class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"  />
+        </div>
+    </div> -->
 </template>
 
 <script>
@@ -43,29 +50,21 @@ export default {
     },
     computed: {
         parsedItem() {
-            let item = this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item.trim() !== '')
-            this.value.splice(0, this.value.length)
-            this.value.push(...item)
-            return item
+            return this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item.trim() !== '')
         },
     },
-    mounted() {
-        this.item_String = this.value.join(', ')
-    },
-    // unmounted() {
-    //     this.value.push(...this.parsedItem) // Worked Client Side
-    // },
-    // beforeUnmount() {
-        // this.value.push(...this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item.trim() !== '')) // Worked Client Side
-        // this.value.push(...this.parsedItem) // Worked Client Side
-    // },
     methods: {
-        // addItem() {
-        //     this.value.push('')
-        // },
+        addItem() {
+            this.item_String = item_string.trim()
+            this.value.push(...this.parsedItem)
+            console.log("addItem")
+            console.log(this.value)
+            this.item_String = ''
+        },
         removeItem(index) {
             this.parsedItem.splice(index, 1)
-            this.item_String = this.parsedItem.join(', ')
+            this.item_String = this.parsedItem.join(',')
+            this.$emit('input', this.parsedItem)
         },
     },
 }

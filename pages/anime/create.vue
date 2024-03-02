@@ -146,22 +146,29 @@ export default {
     },
     methods: {
         async submitForm() {
-            // console.log(this.formData)
+            console.log('Form data:', this.formData);
+            try {
+                const res = await $fetch('/api/anime', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.formData)
+                });
 
-            const res = await $fetch('/api/anime', {
-                method: 'POST',
-                body: JSON.stringify(this.formData),
-            })
+                // console.log('Response:', res);
 
-            // console.log(res)
-
-            if (res.statusCode === 201) {
-                this.$router.push(`/anime/${res.body.id}`)
-            } else {
-                console.error('Failed to Create anime')
-                alert('Failed to Create anime')
+                if (res.statusCode === 201) {
+                    this.$router.push(`/anime/${res.body.id}`);
+                } else {
+                    console.error('Failed to create anime');
+                    alert('Failed to create anime');
+                }
+            } catch (error) {
+                console.error('Error occurred:', error);
+                alert('Error occurred while creating anime');
             }
-        },
+        }
     },
 }
 </script>

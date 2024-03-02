@@ -1,6 +1,7 @@
-.nuxt
-.output
-.vscode
-.github
+# .nuxt
+# .output
+# .vscode
+# .github
+.*
 
 node_modules

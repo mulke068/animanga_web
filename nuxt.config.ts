@@ -9,15 +9,20 @@ export default defineNuxtConfig({
     },
     pages: true,
     nitro: {
-       enabled: true,
+    //    enabled: true,
     },
     css: ['@/assets/css/main.css'],
     runtimeConfig: {
         private: {
-            api_url: process.env.API_URL || 'http://127.0.0.1:8080',
-            search_url: process.env.SEARCH_URL || 'http://127.0.0.1:7700',
-        },
+            api_url: 'http://127.0.0.1:8080'
+        }
     },
+    // runtimeConfig: {
+    //     private: {
+    //         api_url: process.env.API_REMOTE || 'http://127.0.0.1:8080',
+    //         search_url: process.env.SEARCH_URL || 'http://127.0.0.1:7700',
+    //     },
+    // },
     //eslint: {
     //    ignoreDuringBuilds: true,
     //},
