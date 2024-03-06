@@ -1,27 +1,37 @@
 <template>
     <div class="mt-4">
         <h3 class="text-xl font-semibold mt-4">{{ title }}</h3>
-        <textarea
-            v-model="item_String"
-            class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-        ></textarea>
-        <div class="flex flex-wrap mt-2">
-            <div
-                v-for="(item, index) in parsedItem"
-                :key="index"
-                class="mr-2 rounded-full bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 px-2 py-1"
+        <div v-for="(val, index) in value" :key="index" class="mt-2">
+            <input
+                type="text"
+                v-model="value[index]"
+                class="input-field"
+            />
+            <!-- Buttons for Del arrays -->
+            <button
+                @click.prevent="removeItem(index)"
+                class="delete-button"
             >
-                {{ item }}
-                <button
-                    @click.prevent="removeItem(index)"
-                    class="text-red-500 hover:text-red-700 dark:text-yellow-300 dark:hover:text-yellow-500 focus:outline-none"
-                >
-                    X
-                </button>
-                <input type="hidden" :name="`${title}[${item}]`" v-model="parsedItem[index]"/>
-            </div>
+                Remove {{ title }}
+            </button>
+        </div>
+        <!-- Buttons for Add arrays -->
+        <div class="flex justify-between mt-4">
+            <button
+                @click.prevent="addItem"
+                class="add-button"
+            >
+                Add {{ title }}
+            </button>
         </div>
     </div>
+
+    <!-- <div class="mt-4">
+                <h3 class="text-xl font-semibold mt-4">Info URLs:</h3>
+                <div v-for="(info_url, index) in formData.info_urls" :key="index">
+                    <input type="text" v-model="info_url[index]" class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500" />
+                </div>
+            </div> -->
 </template>
 
 <script>
@@ -36,36 +46,12 @@ export default {
             required: true,
         },
     },
-    data() {
-        return {
-            item_String: '',
-        }
-    },
-    computed: {
-        parsedItem() {
-            let item = this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item.trim() !== '')
-            this.value.splice(0, this.value.length)
-            this.value.push(...item)
-            return item
-        },
-    },
-    mounted() {
-        this.item_String = this.value.join(', ')
-    },
-    // unmounted() {
-    //     this.value.push(...this.parsedItem) // Worked Client Side
-    // },
-    // beforeUnmount() {
-        // this.value.push(...this.item_String.split(/\s*,\s*|\s*;\s*|\n/).filter((item) => item.trim() !== '')) // Worked Client Side
-        // this.value.push(...this.parsedItem) // Worked Client Side
-    // },
     methods: {
-        // addItem() {
-        //     this.value.push('')
-        // },
+        addItem() {
+            this.value.push('')
+        },
         removeItem(index) {
-            this.parsedItem.splice(index, 1)
-            this.item_String = this.parsedItem.join(', ')
+            this.value.splice(index, 1)
         },
     },
 }

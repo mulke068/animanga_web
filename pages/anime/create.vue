@@ -120,6 +120,10 @@
 
 <script>
 export default {
+    components: {
+        FormBoxInput: () => import('@/components/form/boxInput.vue'),
+        FormArrayInput: () => import('@/components/form/arrayInput.vue'),
+    },
     data() {
         return {
             formData: {
