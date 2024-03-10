@@ -1,11 +1,24 @@
+<script setup>
+const search = ref('')
+const nuxtApp = useNuxtApp()
+const { data, status } = await useFetch('/api/manga/', {
+  key: 'MangaSearchResults',
+  getCachedData (key) {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+  }
+})
+
+definePageMeta({
+  layout: false
+})
+</script>
+
 <template>
   <div>
     <NuxtLayout name="search">
       <!-- Navigation -->
       <template #nav>
-        <h1
-          class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200"
-        >
+        <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
           Manga Search
         </h1>
         <NuxtLink to="/" class="link">
@@ -24,7 +37,15 @@
 
       <!-- manga Search -->
       <template #input>
-        <input v-model="search" type="text" placeholder="Search …" class="input-search">
+        <input
+          id="default-search"
+          v-model="search"
+          autocomplete="off"
+          type="search"
+          name="search"
+          placeholder="Search ..."
+          class="input-search"
+        >
       </template>
       <!-- manga Search Results -->
       <template #default>
@@ -44,20 +65,5 @@
       </template>
     </NuxtLayout>
   </div>
-  <div class="bg-gray-100 dark:bg-gray-900 min-h-screen p-4" />
+  <!-- <div class="bg-gray-100 dark:bg-gray-900 min-h-screen p-4" /> -->
 </template>
-
-<script setup>
-const search = ref('')
-const nuxtApp = useNuxtApp()
-const { data, status } = await useFetch('/api/manga/', {
-  key: 'MangaSearchResults',
-  getCachedData (key) {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
-  }
-})
-
-definePageMeta({
-  layout: false
-})
-</script>

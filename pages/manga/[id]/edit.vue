@@ -115,16 +115,16 @@ import { Manga } from "./[id].vue";
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <!-- Types -->
-            <FormBoxInput :value="formData.types" title="Types" />
+            <FormBoxInput :value="formData.types" title="Types" placeholder="Types names separated by , ; or newline" @updated-array="handleTypes" />
 
             <!-- Platforms -->
-            <FormBoxInput :value="formData.platforms" title="Platforms" />
+            <FormBoxInput :value="formData.platforms" title="Platforms" placeholder="Platforms names separated by , ; or newline" @updated-array="handlePlatforms" />
 
             <!-- Genres -->
-            <FormBoxInput :value="formData.genres" title="Genres" />
+            <FormBoxInput :value="formData.genres" title="Genres" placeholder="Genres names separated by , ; or newline" @updated-array="handleGenres" />
 
             <!-- Tags -->
-            <FormBoxInput :value="formData.tags" title="Tags" />
+            <FormBoxInput :value="formData.tags" title="Tags" placeholder="Tags names separated by , ; or newline" @updated-array="handleTags" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -168,6 +168,19 @@ export default {
     this.fetchData() // Fetch data when the component is mounted
   },
   methods: {
+    handleTypes (updatedArray) {
+      this.formData.types = updatedArray
+    },
+    handlePlatforms (updatedArray) {
+      this.formData.platforms = updatedArray
+    },
+    handleGenres (updatedArray) {
+      this.formData.genres = updatedArray
+    },
+    handleTags (updatedArray) {
+      this.formData.tags = updatedArray
+    },
+
     async fetchData () {
       this.loading = true
       try {
@@ -194,18 +207,13 @@ export default {
       })
 
       if (res.statusCode === 201) {
-        this.fetchData()
+        this.clearNuxtData(this.mangaID)
+        this.clearNuxtState(this.mangaID)
+        this.$router.push(`/manga/${this.mangaID}`)
       } else {
         console.error('Failed to update manga')
         alert('Failed to update manga')
       }
-
-      // if (res.statusCode === 201) {
-      //     this.$router.push(`/manga/${this.mangaID}`)
-      // } else {
-      //     console.error('Failed to update manga')
-      //     alert('Failed to update manga')
-      // }
     },
     async deleteEntry () {
       if (!confirm('Are you sure you want to delete this manga?')) {

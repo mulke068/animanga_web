@@ -1,5 +1,5 @@
 <template>
-  <body class="antialiased text-slate-500 dark:text-slate-400 bg-gray-100 dark:bg-gray-900 min-h-screen">
+  <body class="antialiased text-slate-500 dark:text-slate-400 bg-gray-100 dark:bg-gray-900 dark:text-white text-black min-h-screen">
     <!-- Navigation -->
     <nav class="sticky top-0 left-0 mb-4 bg-white dark:bg-slate-900 z-10">
       <div class="relative">

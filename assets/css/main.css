@@ -11,10 +11,10 @@
 
 @layer components {
     .link {
-        @apply text-blue-500 dark:text-blue-300 hover:underline p-2.5;
+        @apply text-blue-500 dark:text-blue-300 hover:underline p-2.5 cursor-pointer;
     }
     .nuxt-link {
-        @apply text-2xl font-bold text-purple-600 dark:text-purple-300;
+        @apply text-2xl font-bold text-purple-600 dark:text-purple-300 cursor-pointer;
     }
     .submit-button {
         /* @apply m-2 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white  mt-4; */

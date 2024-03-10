@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-gray-100 dark:bg-gray-900 min-h-screen p-4">
+  <body class="bg-gray-100 dark:bg-gray-900 dark:text-white text-black min-h-screen p-4">
     <nav class="flex justify-between items-center py-4">
       <slot name="nav" />
     </nav>

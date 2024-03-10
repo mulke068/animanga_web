@@ -1,3 +1,4 @@
+import { darkMode } from './.nuxt/types/tailwind.config';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {
@@ -37,7 +38,30 @@ export default defineNuxtConfig({
   // },
   eslint: {},
   pages: true,
+  components: true,
   nitro: {
     //    enabled: true,
+  },
+  app: {
+    head: {
+      title: 'Animanga',
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ],
+      htmlAttrs: {
+        lang: 'en'
+      },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        // { charset: 'utf-8' },
+        // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        // { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // { name: 'lang', content: 'en' },
+        { name: 'description', content: 'Anime and Manga Web App with Nuxt.js' },
+        { property: 'og:title', content: 'Animanga' },
+        { property: 'og:description', content: 'Anime and Manga Web App with Nuxt.js' }
+      ]
+    }
   }
 })
