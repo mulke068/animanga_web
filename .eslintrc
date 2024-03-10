@@ -1,0 +1,25 @@
+// {
+//   "root": true,
+//   "env": {
+//     "browser": true,
+//     "node": true
+//   },
+//   "parserOptions": {
+//     "parser": "@babel/eslint-parser"
+//   },
+//   "extends": [
+//     // "@nuxtjs"
+//     // "@nuxtjs/eslint-module"
+//     "@nuxtjs/eslint-config-typescript"
+//   ],
+//   "plugins": [
+//     "vue"
+//   ],
+//   // add your custom rules here
+//   "rules": {}
+// }
+{
+  "extends": [
+    "@nuxtjs/eslint-config-typescript"
+  ]
+}

@@ -1,0 +1,45 @@
+<template>
+    <div>
+      <h3 class="text-xl font-semibold">{{ title }}</h3>
+      <textarea v-model="inputText" @input="updateItems"></textarea>
+      <div v-for="(item, index) in items" :key="index">
+        {{ item }}
+        <button @click="removeItem(index)">Remove</button>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      value: Array,
+      title: String,
+      placeholder: String
+    },
+    data() {
+      return {
+        inputText: '',
+        items: []
+      };
+    },
+    mounted() {
+      this.items = [...this.value];
+    },
+    watch: {
+      value(newValue) {
+        this.items = [...newValue];
+      }
+    },
+    methods: {
+      updateItems() {
+        const delimiters = /[,;\n]/;
+        this.items = this.inputText.split(delimiters).map(item => item.trim()).filter(Boolean);
+        this.$emit('input', this.items);
+      },
+      removeItem(index) {
+        this.items.splice(index, 1);
+        this.$emit('input', this.items);
+      }
+    }
+  };
+  </script>

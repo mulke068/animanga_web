@@ -1,58 +1,69 @@
 <template>
-    <div class="mt-4">
-        <h3 class="text-xl font-semibold mt-4">{{ title }}</h3>
-        <div v-for="(val, index) in value" :key="index" class="mt-2">
-            <input
-                type="text"
-                v-model="value[index]"
-                class="input-field"
-            />
-            <!-- Buttons for Del arrays -->
-            <button
-                @click.prevent="removeItem(index)"
-                class="delete-button"
-            >
-                Remove {{ title }}
-            </button>
-        </div>
-        <!-- Buttons for Add arrays -->
-        <div class="flex justify-between mt-4">
-            <button
-                @click.prevent="addItem"
-                class="add-button"
-            >
-                Add {{ title }}
-            </button>
-        </div>
+  <div class="mt-4">
+    <h3 class="text-xl font-semibold mt-4">
+      {{ title }}
+    </h3>
+    <textarea
+      v-model="inputText"
+      spellcheck="false"
+      class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
+      @input="updateItems"
+      :placeholder="placeholder"
+    />
+    <div class="flex flex-wrap mt-2">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="mr-2 rounded-full bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 px-2 py-1 focus-within:ring-2 focus-within:ring-black dark:focus-within:ring-white"
+      >
+        {{ item }}
+        <button
+          class="text-red-500 hover:text-red-700 dark:text-yellow-300 dark:hover:text-yellow-500 focus:outline-none"
+          @click.prevent="removeItem(index)"
+        >
+          X
+        </button>
+      </div>
     </div>
-
-    <!-- <div class="mt-4">
-                <h3 class="text-xl font-semibold mt-4">Info URLs:</h3>
-                <div v-for="(info_url, index) in formData.info_urls" :key="index">
-                    <input type="text" v-model="info_url[index]" class="text-purple-600 hover:underline dark:text-yellow-300 dark:hover:text-yellow-500" />
-                </div>
-            </div> -->
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        value: {
-            type: Array,
-            required: true,
-        },
-        title: {
-            type: String,
-            required: true,
-        },
+  props: {
+    value: Array,
+    title: String,
+    placeholder: String
+  },
+  data () {
+    return {
+      inputText: '',
+      items: []
+    }
+  },
+  watch: {
+    items () {
+      this.passUpdatedArray()
+    }
+  },
+  mounted () {
+    this.items = [...this.value]
+    this.inputText = this.items.join(', ')
+  },
+  methods: {
+    updateItems () {
+      const delimiters = /[,;\n]/
+      this.items = this.inputText.split(delimiters).map(item => item.trim()).filter(Boolean)
+      // this.$emit('input', this.items);
     },
-    methods: {
-        addItem() {
-            this.value.push('')
-        },
-        removeItem(index) {
-            this.value.splice(index, 1)
-        },
+    removeItem (index) {
+      this.items.splice(index, 1)
+      this.inputText = this.items.join(', ')
+      // this.$emit('input', this.items);
     },
+    passUpdatedArray () {
+      this.$emit('updatedArray', this.items)
+    }
+  }
 }
 </script>
