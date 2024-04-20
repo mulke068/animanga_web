@@ -38,9 +38,9 @@ definePageMeta({
         >
           Create
         </NuxtLink>
-        <NuxtLink class="link" @click="refresh">
+        <!-- <NuxtLink class="link" @click="refresh">
           Refresh
-        </NuxtLink>
+        </NuxtLink> -->
 
         <!--<a class="bg-red-500 hover:bg-red-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white" href="../index.php">Logout</a> -->
       </template>
