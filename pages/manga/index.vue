@@ -9,7 +9,8 @@ const { data, status } = await useFetch('/api/manga/', {
 })
 
 definePageMeta({
-  layout: false
+  layout: false,
+  middleware: 'auth'
 })
 </script>
 

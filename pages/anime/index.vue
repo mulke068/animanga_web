@@ -13,7 +13,8 @@ const { data, status, refresh } = await useLazyFetch('/api/anime/', {
 // console.log({ en, original, jp });
 
 definePageMeta({
-  layout: false
+  layout: false,
+  middleware: 'auth'
 })
 </script>
 

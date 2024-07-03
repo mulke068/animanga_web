@@ -31,7 +31,7 @@ const data = ref(getData)
       </template>
 
       <template #default>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           <div class="max-w-prose">
             <h2 class="text-3xl font-semibold mb-4">
               {{ data.names.original }}
@@ -44,7 +44,7 @@ const data = ref(getData)
             </p>
           </div>
 
-          <div class="mt-4 border-t pt-4">
+          <!-- <div class="mt-4 border-t pt-4">
             <h3 class="text-xl font-semibold">
               Details:
             </h3>
@@ -66,6 +66,78 @@ const data = ref(getData)
                 <span class="text-gray-800 dark:text-gray-300 p-2">{{ data.status }}</span>
               </li>
             </ul>
+          </div> -->
+
+          <div class="mt-4 border-t pt-4">
+            <h3 class="text-xl font-semibold">
+              Details:
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4  mt-4 space-y-2">
+              <div>
+                <strong class="text-purple-600">Season:</strong>
+                <span id="seasonValue" class="text-gray-800 dark:text-gray-300 p-2">{{ data.season }}</span>
+              </div>
+              <div>
+                <strong class="text-purple-600">Season:</strong>
+                <button onclick="changeSeason(-1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  -
+                </button>
+                <span id="seasonValue" class="text-gray-800 dark:text-gray-300 p-2">{{ 0 }}</span>
+                <button onclick="changeSeason(1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  +
+                </button>
+              </div>
+              <div>
+                <strong class="text-purple-600">Episodes:</strong>
+                <span id="episodesValue" class="text-gray-800 dark:text-gray-300 p-2">{{ data.episodes }}</span>
+              </div>
+              <div>
+                <strong class="text-purple-600">Episodes:</strong>
+                <button onclick="changeEpisodes(-1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  -
+                </button>
+                <span id="episodesValue" class="text-gray-800 dark:text-gray-300 p-2">{{ 0 }}</span>
+                <button onclick="changeEpisodes(1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  +
+                </button>
+              </div>
+              <div>
+                <strong class="text-purple-600">Score:</strong>
+                <span id="scoreValue" class="text-gray-800 dark:text-gray-300 p-2">{{ data.score }}</span>
+              </div>
+              <div>
+                <strong class="text-purple-600">Score:</strong>
+                <button onclick="changeScore(-0.1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  -
+                </button>
+                <span id="scoreValue" class="text-gray-800 dark:text-gray-300 p-2">{{ 0 }}</span>
+                <button onclick="changeScore(0.1)" class="bg-purple-600 text-white px-2 py-1 rounded">
+                  +
+                </button>
+              </div>
+              <div>
+                <strong class="text-purple-600">Status:</strong>
+                <span class="text-gray-800 dark:text-gray-300 p-2">{{ data.status }}</span>
+              </div>
+              <div>
+                <strong class="text-purple-600">Status:</strong>
+                <select id="userStatus" class="text-gray-800 dark:text-gray-300 p-2">
+                  <option value="Ongoing">
+                    Ongoing
+                  </option>
+                  <option value="Completed">
+                    Completed
+                  </option>
+                  <option value="Dropped">
+                    Dropped
+                  </option>
+                  <option value="Plan to Watch">
+                    Plan to Watch
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <div class="break-all">
