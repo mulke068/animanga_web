@@ -19,14 +19,17 @@ export default defineEventHandler(async (event) => {
 
     return {
       statusCode: 201,
-      body: res
+      body: {
+        token: res.token,
+        uid: res.uid
+      }
     }
   } catch (error) {
     console.error('Error at Client Post Auth', error)
 
     return {
       statusCode: 500,
-	  error: 'Error at Client' + error
+      error: 'Error at Client' + error
     }
   }
 })

@@ -1,4 +1,4 @@
-import { darkMode } from './.nuxt/types/tailwind.config';
+import { darkMode } from './.nuxt/types/tailwind.config'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {
@@ -7,19 +7,24 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+
   runtimeConfig: {
     private: {
-      api_url: 'http://127.0.0.1:8080'
+      api_url: 'http://127.0.0.1:8080',
+      ws_url: 'ws://127.0.0.1:8080/ws'
       // search_url: 'http://172.0.0.1:7700'
     }
   },
+
   css: ['@/assets/css/main.css'],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {}
     }
   },
+
   modules: ['@nuxt/image' // '@nuxt/content',
     // '@nuxtjs/partytown',
     // 'nuxt-meilisearch',
@@ -27,10 +32,17 @@ export default defineNuxtConfig({
     // '@vee-validate/nuxt'
     // '@nuxtjs/eslint-module'
   ],
+
+  plugins: [
+    { src: '~/plugins/websocket.ts', mode: 'server' }
+  ],
+
   // Remove the eslint property
   // eslint: {},
   pages: true,
+
   components: true,
+
   // nitro: {},
   app: {
     head: {
@@ -53,5 +65,7 @@ export default defineNuxtConfig({
         { property: 'og:description', content: 'Anime and Manga Web App with Nuxt.js' }
       ]
     }
-  }
+  },
+
+  compatibilityDate: '2024-07-17'
 })

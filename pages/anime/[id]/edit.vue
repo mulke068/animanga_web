@@ -2,8 +2,11 @@
   <ClientOnly>
     <NuxtLayout name="items">
       <template #nav>
-        <NuxtLink to="/anime" class="nuxt-link">
+        <NuxtLink :to="'/anime/' + animeID" class="nuxt-link">
           Back
+        </NuxtLink>
+        <NuxtLink to="/anime" class="nuxt-link">
+          Anime
         </NuxtLink>
         <NuxtLink to="/" class="nuxt-link">
           Home
@@ -75,7 +78,7 @@
                 </li>
                 <li>
                   <strong class="text-purple-600">Score:</strong>
-                  <input v-model="formData.score" type="number" class="input-field" required>
+                  <input v-model="formData.score" type="text" class="input-field" required>
                 </li>
                 <li>
                   <strong class="text-purple-600">Status:</strong>
@@ -151,6 +154,12 @@
     </NuxtLayout>
   </ClientOnly>
 </template>
+
+<script setup>
+definePageMeta({
+  middleware: ['auth']
+})
+</script>
 
 <script>
 export default {

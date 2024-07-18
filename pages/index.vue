@@ -10,9 +10,11 @@
       <NuxtLink v-if="authToken" to="/auth/logout" class="text-lg font-semibold hover:text-indigo-500">
         Logout
       </NuxtLink>
-
       <NuxtLink v-else to="/auth/login" class="text-lg font-semibold hover:text-indigo-500">
         Login
+      </NuxtLink>
+      <NuxtLink v-if"authToken" to="/user" class="text-lg font-semibold hover:text-indigo-500">
+        Account
       </NuxtLink>
 
       <!-- <NuxtLink to="/test" class="text-lg font-semibold hover:text-indigo-500"> Test </NuxtLink> -->

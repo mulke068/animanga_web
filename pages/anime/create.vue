@@ -139,14 +139,14 @@
 </template>
 
 <script setup>
-definePageMeta({
-  middleware: 'auth'
-})
 </script>
 
 <script>
 import FormBoxInput from '~/components/form/boxInput'
 import FormArrayInput from '~/components/form/arrayInput'
+definePageMeta({
+  middleware: ['auth']
+})
 
 export default {
   components: {

@@ -7,8 +7,8 @@
       v-model="inputText"
       spellcheck="false"
       class="bg-blue-200 text-blue-700 dark:bg-green-400 dark:text-green-900 rounded-full px-2 py-1 mt-2"
-      @input="updateItems"
       :placeholder="placeholder"
+      @input="updateItems"
     />
     <div class="flex flex-wrap mt-2">
       <div
