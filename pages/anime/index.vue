@@ -20,11 +20,11 @@ definePageMeta({
 export default {
   data () {
     return {
-      is_auth: null
+      isAuth: null
     }
   },
   beforeMount () {
-    this.is_auth = localStorage.getItem('auth_token') || null
+    this.isAuth = localStorage.getItem('auth_token') || null
   }
 }
 </script>
@@ -44,7 +44,7 @@ export default {
         <NuxtLink to="manga" class="link">
           Manga
         </NuxtLink>
-        <div v-if="is_auth">
+        <div v-if="isAuth">
           <NuxtLink
             to="/anime/create"
             class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white"

@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   ],
 
   plugins: [
-    { src: '~/plugins/websocket.ts', mode: 'server' }
+    { src: '~/plugins/websocket.ts', mode: 'all' }
   ],
 
   // Remove the eslint property

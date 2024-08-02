@@ -1,8 +1,24 @@
 <script setup lang="ts">
-import auth from '~/middleware/auth'
+import { ref, onBeforeMount } from 'vue' // Add the import statements for ref and onBeforeMount
+
+import { type IWebSocket } from '~/plugins/websocket'
+
+definePageMeta({
+  layout: false
+})
 
 const { id } = useRoute().params
 const nuxtApp = useNuxtApp()
+const ws: IWebSocket = nuxtApp.$ws as IWebSocket
+let uid: string | null = null
+let isAuth: string | null = null
+let authToken: string | null = null
+
+onBeforeMount(() => {
+  isAuth = localStorage.getItem('auth_token') || null
+  uid = localStorage.getItem('uid') || null
+  authToken = isAuth
+})
 
 const { data: getData, refresh } = await useFetch(`/api/anime/${id}`, {
   key: id.toString(),
@@ -10,32 +26,35 @@ const { data: getData, refresh } = await useFetch(`/api/anime/${id}`, {
     return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
   }
 })
+
 const data = ref(getData)
 
-definePageMeta({
-  layout: false
-})
-
-try {
-  const uid = localStorage.getItem('uid')
-  console.log('Uid: ', uid)
-} catch (e) {
-  console.log('Uid Not loaded', e)
-}
-
-</script>
-
-<script lang="ts">
-export default {
-  data () {
-    return {
-      is_auth: null
-    }
-  },
-  beforeMount () {
-    this.is_auth = localStorage.getItem('auth_token') || null
+function handleWatched (value: number) {
+//   console.log('Watched: ', value)
+  try {
+    ws.sendMessage('has_anime:watched', { authToken, value })
+  } catch (e) {
+    console.log('Error: ', e)
   }
 }
+
+function handleScore (value: number) {
+//   console.log('Score: ', value)
+  try {
+    ws.sendMessage('has_anime:score', { authToken, value })
+  } catch (e) {
+    console.log('Error: ', e)
+  }
+}
+
+ws.onMessage((msg: any) => {
+  if (msg.name === 'has_anime:watched') {
+    // console.log('Watched: ', msg.payload)
+  }
+  if (msg.name === 'has_anime:score') {
+    // console.log('Score: ', msg.payload)
+  }
+})
 </script>
 
 <template>
@@ -48,13 +67,13 @@ export default {
           Back
         </NuxtLink>
         <button
-          v-if="is_auth"
+          v-if="isAuth"
           class="refresh-button"
           @click="refresh"
         >
           Refresh
         </button>
-        <NuxtLink v-if="is_auth" :to="`${id}/edit`" class="link">
+        <NuxtLink v-if="isAuth" :to="`${id}/edit`" class="link">
           Edit
         </NuxtLink>
       </template>
@@ -78,7 +97,7 @@ export default {
                 Details:
               </h3>
 
-              <div v-if="is_auth">
+              <div v-if="isAuth">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4  mt-4 space-y-2 ">
                   <div class="md:col-span-2">
                     <strong class="text-purple-600">Season:</strong>
@@ -88,12 +107,12 @@ export default {
                     <strong class="text-purple-600">Episodes:</strong>
                     <span id="episodesValue" class="text-gray-800 dark:text-gray-300 p-2">{{ data.episodes }}</span>
                   </div>
-                  <LazyFormUserCounter title="Watched:" :current-value="0" :max-value="data.episodes" :increase-decrease="1" @updated-value="handleWatched" />
+                  <FormUserCounter title="Watched:" :current-value="0" :max-value="data.episodes" :increase-decrease="1" @updated-value="handleWatched" />
                   <div>
                     <strong class="text-purple-600">Score:</strong>
                     <span id="scoreValue" class="text-gray-800 dark:text-gray-300 p-2">{{ data.score }}</span>
                   </div>
-                  <LazyFormUserCounter title="Score:" :current-value="0" :max-value="10" :increase-decrease="0.5" @updated_value="handleScore" />
+                  <FormUserCounter title="Score:" :current-value="0" :max-value="10" :increase-decrease="0.5" @updated-value="handleScore" />
                   <div>
                     <strong class="text-purple-600">Status:</strong>
                     <span class="text-gray-800 dark:text-gray-300 p-2">{{ data.status }}</span>
