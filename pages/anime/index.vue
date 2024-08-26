@@ -33,30 +33,26 @@ export default {
   <div>
     <NuxtLayout name="search">
       <template #nav>
-        <h1
-          class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200"
-        >
+        <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
           Anime Search
         </h1>
-        <NuxtLink to="/" class="link">
+        <NuxtLink to="/" class="link mr-4">
           Home
         </NuxtLink>
-        <NuxtLink to="manga" class="link">
+        <NuxtLink to="manga" class="link mr-4">
           Manga
         </NuxtLink>
-        <div v-if="isAuth">
+        <div v-if="isAuth" class="flex gap-4">
           <NuxtLink
             to="/anime/create"
             class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white"
           >
             Create
           </NuxtLink>
-          <NuxtLink class="link" @click="refresh">
+          <!-- <NuxtLink class="link" @click="refresh">
             Refresh
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
-
-        <!--<a class="bg-red-500 hover:bg-red-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white" href="../index.php">Logout</a> -->
       </template>
 
       <template #input>
@@ -67,7 +63,7 @@ export default {
           type="search"
           name="search"
           placeholder="Search ..."
-          class="input-search"
+          class="block w-full p-4 pl-10 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
       </template>
 

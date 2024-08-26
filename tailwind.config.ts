@@ -11,7 +11,11 @@ export default {
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'transform': 'transform',
+      },
+    },
     accentColor: ({ theme }) => ({
       ...theme('colors'),
       auto: 'auto'

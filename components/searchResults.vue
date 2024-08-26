@@ -18,9 +18,9 @@ const filteredItems = computed(() => {
 </script>
 
 <template>
-  <ul class="grid grid-cols-1 gap-4">
+  <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
     <li v-for="item in filteredItems" :key="item.id.String">
-      <div class="md:flex md:justify-items-stretch p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
+      <div class="flex flex-col md:flex-row md:justify-between p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
         <div class="md:w-2/3">
           <h1 class="text-2xl text-blue-400 dark:text-blue-400 font-semibold">
             {{ item.names.original }}
@@ -33,13 +33,13 @@ const filteredItems = computed(() => {
           </h2>
           <NuxtLink
             :to="`/${name}/${item.id.id.String}`"
-            class="md:w-fit mt-2 text-blue-500 hover:underline block"
+            class="mt-2 text-blue-500 hover:underline block"
           >
             Click ME
           </NuxtLink>
         </div>
-        <div class="md:w-1/3 justify-center">
-          <img :src="item.image_urls[0]" :alt="`${name} image`" class="w-64 h-full object-cover rounded-lg">
+        <div class="mt-4 md:mt-0 md:w-1/3 flex justify-center md:justify-start">
+          <img :src="item.image_urls[0]" :alt="`${name} image`" class="w-full md:w-64 h-full object-cover rounded-lg">
         </div>
       </div>
     </li>
